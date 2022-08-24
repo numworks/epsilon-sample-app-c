@@ -15,7 +15,7 @@ int main(int argc, char * argv[]) {
 
 ## Build the app
 
-You need to install an embedded ARM toolchain and [nwlink](https://www.npmjs.com/package/nwlink).
+To build this sample app, you will need to install the [embedded ARM toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain) and [nwlink](https://www.npmjs.com/package/nwlink).
 
 ```shell
 brew install numworks/tap/arm-none-eabi-gcc node # Or equivalent on your OS
@@ -23,12 +23,11 @@ npm install -g nwlink
 make clean && make build
 ```
 
-Once you app 'output/app.nwa' is built, you can upload it onto your calculator from [NumWorks online uploader](https://my.numworks.com/apps).
+You should now have a `output/app.nwa` file that you can distribute! Anyone can now install it on their calculator from the [NumWorks online uploader](https://my.numworks.com/apps).
 
-## Run the app (development)
+## Run the app locally
 
-The app is sent over to the calculator using the DFU protocol over USB.
-The last command has to be executed with the targeted device plugged to the computer.
+To run the app on your development machine, you can use the following command
 
 ```shell
 # Now connect your NumWorks calculator to your computer using the USB cable

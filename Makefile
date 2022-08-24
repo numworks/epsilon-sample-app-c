@@ -1,7 +1,7 @@
 Q ?= @
 CC = arm-none-eabi-gcc
 BUILD_DIR = output
-NWLINK = ~/Sources/web/cdn/modules/nwlink/bin/nwlink
+NWLINK = nwlink
 LINK_GC = 1
 LTO = 1
 
@@ -64,7 +64,7 @@ $(addprefix $(BUILD_DIR)/,%.o): %.c | $(BUILD_DIR)
 
 $(BUILD_DIR)/icon.nwi: src/icon.png
 	@echo "NWI     $<"
-	$(Q) $(NWLINK) convert-nwi $< $@
+	$(Q) $(NWLINK) png-nwi $< $@
 
 $(BUILD_DIR)/icon.o: $(BUILD_DIR)/icon.nwi
 	@echo "INLINE  $<"
