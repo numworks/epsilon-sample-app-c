@@ -19,7 +19,6 @@ To build this sample app, you will need to install the [embedded ARM toolchain](
 
 ```shell
 brew install numworks/tap/arm-none-eabi-gcc node # Or equivalent on your OS
-npm install -g nwlink
 make clean && make build
 ```
 
