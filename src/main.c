@@ -11,10 +11,10 @@ eadk_color_t random_color() {
 }
 
 eadk_rect_t random_screen_rect() {
-  uint16_t x = eadk_random() % (eadk_screen_rect.width - 1);
-  uint16_t y = eadk_random() % (eadk_screen_rect.height - 1);
-  uint16_t width = eadk_random() % (eadk_screen_rect.width - x);
-  uint16_t height = eadk_random() % (eadk_screen_rect.height - y);
+  uint16_t x = eadk_random() % (EADK_SCREEN_WIDTH - 1);
+  uint16_t y = eadk_random() % (EADK_SCREEN_HEIGHT - 1);
+  uint16_t width = eadk_random() % (EADK_SCREEN_WIDTH - x);
+  uint16_t height = eadk_random() % (EADK_SCREEN_HEIGHT - y);
   return (eadk_rect_t){x, y, width, height};
 }
 
@@ -42,7 +42,7 @@ void draw_random_buffer() {
 
 void move_pointer() {
   uint16_t size = 10;
-  eadk_rect_t cursor = {(eadk_screen_rect.width-size)/2, (eadk_screen_rect.height-size)/2, size, size};
+  eadk_rect_t cursor = {(EADK_SCREEN_WIDTH-size)/2, (EADK_SCREEN_HEIGHT-size)/2, size, size};
   while (true) {
     eadk_keyboard_state_t keyboard = eadk_keyboard_scan();
     if (eadk_keyboard_key_down(keyboard, eadk_key_back)) {
@@ -54,10 +54,10 @@ void move_pointer() {
     if (eadk_keyboard_key_down(keyboard, eadk_key_up) && cursor.y > 0) {
       cursor.y -= 1;
     }
-    if (eadk_keyboard_key_down(keyboard, eadk_key_right) && cursor.x < eadk_screen_rect.width-size ) {
+    if (eadk_keyboard_key_down(keyboard, eadk_key_right) && cursor.x < EADK_SCREEN_WIDTH-size ) {
       cursor.x += 1;
     }
-    if (eadk_keyboard_key_down(keyboard, eadk_key_down) && cursor.y < eadk_screen_rect.height-size) {
+    if (eadk_keyboard_key_down(keyboard, eadk_key_down) && cursor.y < EADK_SCREEN_HEIGHT-size) {
       cursor.y += 1;
     }
     eadk_display_push_rect_uniform(cursor, random_color());
