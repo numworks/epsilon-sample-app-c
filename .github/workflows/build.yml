@@ -13,3 +13,8 @@ jobs:
         run: make build
       - name: Run make check
         run: make check
+      - name: Upload binary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build_nwa
+          path: output/app.nwa
