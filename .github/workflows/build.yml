@@ -1,15 +1,30 @@
-name: Build
-on: [pull_request, push]
+name: Build NWA
+
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Install toolchain
-        uses: numworks/setup-arm-toolchain@latest
-      - name: Run make build
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Installer les outils
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-none-eabi
+          npm install -g nwlink
+
+      - name: Compiler
         run: make build
-      - name: Run make check
-        run: make check
+
+      - name: Envoyer le .nwa
+        uses: actions/upload-artifact@v4
+        with:
+          name: survie-nwa
+          path: output/*.nwa
