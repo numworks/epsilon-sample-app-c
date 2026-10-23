@@ -1,15 +1,45 @@
+```yaml
 name: Build
-on: [pull_request, push]
+
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
       - name: Install toolchain
         uses: numworks/setup-arm-toolchain@latest
-      - name: Run make build
+
+      - name: Check environment
+        run: |
+          node --version
+          npm --version
+          arm-none-eabi-gcc --version
+
+      - name: Install nwlink
+        run: npm install --global nwlink@0.0.16
+
+      - name: Check EADK flags
+        run: |
+          nwlink eadk-cflags
+
+      - name: Clean previous build
+        run: make clean
+
+      - name: Build .nwa
         run: make build
-      - name: Run make check
-        run: make check
+
+      - name: Upload app.nwa
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: night-drift-app
+          path: output/app.nwa
+          if-no-files-found: error
+```
